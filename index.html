@@ -1,37 +1,311 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="transparent">
-<title>Crystal Pride — Wardrobe</title>
-<style>
-:root{color-scheme:dark;--panel:rgba(15,17,23,.94);--line:#ffffff1c;--text:#f6f5fa;--muted:#a4a7b3;--pink:#ff4e9b;--violet:#9b7afa;--green:#52dfb2;font:15px/1.4 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:transparent;color:var(--text);overflow:hidden}body{display:flex;align-items:center;padding:24px}.panel{width:min(385px,calc(100vw - 32px));padding:21px;border:1px solid var(--line);border-radius:22px;background:var(--panel);backdrop-filter:blur(18px);box-shadow:0 22px 70px #0008}.top{display:flex;justify-content:space-between;align-items:center}.brand{font-size:11px;letter-spacing:.16em;color:#e9d7ff;font-weight:800}.close{border:1px solid var(--line);width:34px;height:34px;border-radius:11px;background:#ffffff0b;color:white;font-size:19px;cursor:pointer}.title{font-size:28px;letter-spacing:-.04em;margin:17px 0 4px}.desc{margin:0;color:var(--muted);font-size:12px}.preview{margin:17px 0 16px;padding:13px 14px;border:1px solid #a78bfa35;border-radius:15px;background:linear-gradient(120deg,#8b5cf61c,#ff4e9b0e)}.preview-tag{font-size:10px;font-weight:800;letter-spacing:.13em;color:#c8b8ff}.preview-row{display:flex;align-items:center;gap:10px;margin-top:7px}.pulse{width:9px;height:9px;flex:none;border-radius:50%;background:var(--green);box-shadow:0 0 12px #52dfb2}.preview strong{font-size:13px}.preview small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.label{font-size:11px;color:var(--muted);letter-spacing:.1em;margin:17px 0 8px}.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.cat{border:1px solid var(--line);border-radius:12px;background:#ffffff07;padding:9px 4px 8px;text-align:center;cursor:pointer;color:var(--muted);font-size:11px}.cat b{display:block;font-size:11px;color:#d6d3df;margin-bottom:3px}.cat.active{border-color:#ff4e9b9c;background:#ff4e9b19;color:#fff}.numeric{display:grid;grid-template-columns:48px 1fr 48px;gap:9px;align-items:center}.step{height:51px;border:1px solid var(--line);border-radius:14px;background:#ffffff09;font-size:22px;cursor:pointer}.step:hover,.cat:hover{border-color:#ffffff65}.readout{height:51px;border:1px solid #a78bfa62;border-radius:14px;background:#a78bfa12;display:flex;align-items:center;justify-content:center;gap:10px}.readout input{width:70px;background:transparent;border:0;outline:0;color:white;text-align:center;font:800 25px/1 ui-monospace,Consolas,monospace}.readout input::-webkit-inner-spin-button,.readout input::-webkit-outer-spin-button{opacity:1}.limit{font-size:11px;color:var(--muted);white-space:nowrap}.item-name{text-align:center;font-size:13px;font-weight:700;margin-top:10px;min-height:20px}.item-id{text-align:center;color:var(--muted);font-size:10px;margin-top:2px}.actions{display:grid;grid-template-columns:1fr auto;gap:9px;margin-top:20px}.apply,.cancel{height:45px;border-radius:13px;font:700 13px inherit;cursor:pointer}.apply{border:0;background:linear-gradient(100deg,var(--pink),var(--violet));color:#fff;box-shadow:0 8px 23px #aa3a9935}.cancel{border:1px solid var(--line);background:#ffffff08;color:#dedce5;padding:0 16px}.help{margin:14px 1px 0;color:#9396a3;font-size:10px;line-height:1.55}.kbd{display:inline-block;border:1px solid #ffffff32;border-radius:4px;padding:0 4px;color:#ddd;margin:0 1px}.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,12px);opacity:0;transition:.18s;padding:10px 14px;border-radius:11px;background:#20232b;border:1px solid var(--line);box-shadow:0 8px 24px #0008;font-size:12px;pointer-events:none;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}@media(max-width:520px){body{align-items:flex-end;padding:12px}.panel{width:100%;padding:17px;border-radius:20px}.title{font-size:24px}.preview{margin:12px 0}.label{margin-top:12px}.help{margin-top:10px}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="transparent">
+  <title>Crystal Pride — Wardrobe</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --panel: rgba(17, 18, 26, .96);
+      --surface: rgba(255, 255, 255, .045);
+      --line: rgba(255, 255, 255, .11);
+      --text: #f7f5fb;
+      --muted: #aaa8b5;
+      --pink: #ff4e9b;
+      --violet: #9b7afa;
+      --green: #52dfb2;
+      font: 15px/1.45 Inter, "Segoe UI", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; }
+    body {
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      overflow: hidden;
+      color: var(--text);
+      background: transparent;
+    }
+    button { color: inherit; font: inherit; }
+    .panel {
+      width: min(420px, 100%);
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--panel);
+      box-shadow: 0 24px 72px rgba(0, 0, 0, .48);
+    }
+    .top, .brand, .status, .item-row, .actions { display: flex; align-items: center; }
+    .top { justify-content: space-between; gap: 16px; }
+    .brand { gap: 9px; color: #eadcff; font-size: 11px; font-weight: 800; letter-spacing: .16em; }
+    .brand-mark {
+      display: grid;
+      width: 29px;
+      height: 29px;
+      place-items: center;
+      border: 1px solid rgba(255, 78, 155, .3);
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(255, 78, 155, .2), rgba(155, 122, 250, .24));
+      color: #ffd9eb;
+      font-size: 15px;
+    }
+    .brand small { display: block; margin-top: 2px; color: #8e8998; font-size: 9px; font-weight: 700; letter-spacing: .12em; }
+    .close {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+      color: #e9e5ef;
+      font-size: 21px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .close:hover, .secondary:hover { border-color: rgba(255, 255, 255, .28); background: rgba(255,255,255,.08); }
+    h1 { margin: 20px 0 5px; font-size: 27px; line-height: 1.12; letter-spacing: -.045em; }
+    .intro { margin: 0; color: var(--muted); font-size: 12px; }
+    .preview {
+      margin: 18px 0 15px;
+      padding: 13px 14px;
+      border: 1px solid rgba(155, 122, 250, .24);
+      border-radius: 15px;
+      background: linear-gradient(120deg, rgba(139, 92, 246, .11), rgba(255, 78, 155, .06));
+    }
+    .eyebrow { color: #cbbaff; font-size: 9px; font-weight: 800; letter-spacing: .15em; }
+    .status { gap: 9px; margin-top: 7px; color: #e7e3ed; font-size: 12px; }
+    .status-dot { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 50%; background: #878390; }
+    .status[data-state="ready"] .status-dot { background: var(--green); box-shadow: 0 0 12px rgba(82, 223, 178, .75); }
+    .status[data-state="error"] .status-dot { background: #ff7272; box-shadow: 0 0 10px rgba(255, 114, 114, .5); }
+    .preview-note { margin: 5px 0 0 17px; color: #9895a2; font-size: 10px; }
+    .section-label { margin: 18px 0 8px; color: #a6a3b0; font-size: 10px; font-weight: 800; letter-spacing: .12em; }
+    .item-card {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+    }
+    .item-icon {
+      display: grid;
+      width: 56px;
+      height: 56px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid rgba(255, 78, 155, .2);
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(255, 78, 155, .13), rgba(155, 122, 250, .16));
+    }
+    .item-icon svg { width: 31px; height: 31px; }
+    .item-info { min-width: 0; flex: 1; }
+    .item-name { font-size: 15px; font-weight: 800; }
+    .item-sub { margin-top: 3px; color: var(--muted); font-size: 11px; }
+    .item-tag { display: inline-block; margin-top: 7px; padding: 3px 7px; border: 1px solid rgba(82, 223, 178, .2); border-radius: 999px; background: rgba(82, 223, 178, .07); color: #8ce9c9; font-size: 9px; font-weight: 800; letter-spacing: .08em; }
+    .description { margin: 10px 2px 0; color: #9693a0; font-size: 10px; line-height: 1.5; }
+    .actions { gap: 9px; margin-top: 19px; }
+    .primary, .secondary { height: 45px; border-radius: 13px; font-size: 12px; font-weight: 800; cursor: pointer; transition: transform .12s ease, opacity .12s ease, border-color .12s ease; }
+    .primary { flex: 1; border: 0; background: linear-gradient(100deg, var(--pink), var(--violet)); color: #fff; box-shadow: 0 8px 24px rgba(170, 58, 153, .22); }
+    .secondary { padding: 0 17px; border: 1px solid var(--line); background: var(--surface); color: #dedbe5; }
+    .primary:hover, .secondary:hover { transform: translateY(-1px); }
+    .primary:disabled, .secondary:disabled { opacity: .55; cursor: wait; transform: none; }
+    .hint { margin: 12px 2px 0; color: #85818e; font-size: 10px; text-align: center; }
+    .key { display: inline-block; min-width: 21px; padding: 1px 5px; border: 1px solid rgba(255,255,255,.18); border-radius: 5px; color: #d7d3df; text-align: center; }
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: max(22px, env(safe-area-inset-bottom));
+      max-width: calc(100vw - 28px);
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #20212a;
+      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+      color: #f1eef6;
+      font-size: 11px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 10px);
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    @media (max-width: 520px) {
+      body { padding: 12px; }
+      .panel { padding: 18px; border-radius: 20px; }
+      h1 { margin-top: 16px; font-size: 24px; }
+      .preview { margin: 14px 0 12px; }
+      .section-label { margin-top: 14px; }
+    }
+    @media (max-height: 560px) {
+      body { padding: 8px; }
+      .panel { padding: 14px 18px; }
+      h1 { margin-top: 12px; font-size: 23px; }
+      .preview { margin: 10px 0; padding: 10px 12px; }
+      .section-label { margin-top: 12px; }
+      .item-card { padding: 10px; }
+      .item-icon { width: 48px; height: 48px; }
+      .actions { margin-top: 12px; }
+      .hint { margin-top: 8px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; } }
+  </style>
 </head>
 <body>
-<section class="panel" aria-label="Wardrobe Crystal Pride">
- <header class="top"><div class="brand">CRYSTAL PRIDE <span style="color:#87818f">/ WARDROBE</span></div><button class="close" id="close" title="Tutup">×</button></header>
- <h1 class="title">Pilih pakaian</h1><p class="desc">Ubah angka untuk mencoba item langsung pada karakter game kamu.</p>
- <div class="preview"><div class="preview-tag">PREVIEW KARAKTER 3D</div><div class="preview-row"><i class="pulse"></i><div><strong id="previewLabel">Karakter game sedang ditampilkan</strong><small>Model diterapkan sementara saat kamu mengganti angka.</small></div></div></div>
- <div class="label">1. PILIH MODEL</div>
- <div class="categories" id="categories"><button class="cat active" data-slot="1"><b>01</b>Gangster</button></div>
- <div class="label">2. PILIH NOMOR ITEM</div>
- <div class="numeric"><button class="step" id="minus" aria-label="Item sebelumnya">−</button><div class="readout"><input id="number" type="number" min="1" max="1" value="1" inputmode="numeric" aria-label="Nomor item"><span class="limit" id="limit">/ 01</span></div><button class="step" id="plus" aria-label="Item berikutnya">+</button></div>
- <div class="item-name" id="itemName">Gangster 1</div><div class="item-id" id="itemId">MODEL -2000</div>
- <div class="actions"><button class="apply" id="apply">Terapkan outfit</button><button class="cancel" id="cancel">Batal</button></div>
- <p class="help">Model gangster1 akan dipasang sebagai outfit. <span class="kbd">Enter</span> Simpan · <span class="kbd">Esc</span> Batal</p>
-</section><div class="toast" id="toast" role="status"></div>
-<script>
-(()=>{'use strict';
- const data={1:[['Gangster 1','gangster1']]};
- let slot=1,number=1;const choices={1:1};const $=id=>document.getElementById(id),input=$('number'),toast=$('toast');
-function send(event,payload){try{if(window.cef&&typeof window.cef.emit==='function'){window.cef.emit(event,String(payload));return true}}catch(e){console.warn('CEF bridge error',e)}return false}
-function notify(text){toast.textContent=text;toast.classList.add('show');clearTimeout(notify.t);notify.t=setTimeout(()=>toast.classList.remove('show'),1800)}
- function render(preview=true){const items=data[slot];number=Math.max(1,Math.min(items.length,Number(input.value)||1));choices[slot]=number;input.min='1';input.max=String(items.length);input.value=String(number);$('limit').textContent='/ '+String(items.length).padStart(2,'0');$('itemName').textContent=items[number-1][0];$('itemId').textContent='MODEL -2000';document.querySelectorAll('.cat').forEach(b=>b.classList.toggle('active',Number(b.dataset.slot)===slot));if(preview)send('crystal_clothing_preview',slot+'|'+number)}
-document.querySelectorAll('.cat').forEach(b=>b.addEventListener('click',()=>{slot=Number(b.dataset.slot);number=choices[slot];input.value=number;render()}));$('minus').addEventListener('click',()=>{number=Math.max(1,number-1);input.value=number;render()});$('plus').addEventListener('click',()=>{number=Math.min(data[slot].length,number+1);input.value=number;render()});input.addEventListener('change',()=>render());input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();render()}});
-$('apply').addEventListener('click',()=>{if(send('crystal_clothing_apply','save'))notify('Outfit disimpan.');else notify('CEF belum terhubung ke server.')});function cancel(){send('crystal_clothing_cancel','cancel');notify('Perubahan dibatalkan.')}$('cancel').addEventListener('click',cancel);$('close').addEventListener('click',cancel);
- document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA'].includes(document.activeElement.tagName))return;if(e.key==='1'){slot=1;number=1;input.value=number;render()}else if(e.key==='Enter'){send('crystal_clothing_apply','save');notify('Outfit disimpan.')}else if(e.key==='Escape')cancel()});
- window.addEventListener('crystal_clothing_state',event=>{const value=Number(String(event.detail||'1').split('|')[0]);choices[1]=value===1?1:1;number=1;input.value=1;render(false)});send('crystal_clothing_begin','start');render(false);
-})();
-</script>
+  <main class="panel" aria-labelledby="title">
+    <header class="top">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">C</span>
+        <span>CRYSTAL PRIDE<small>WARDROBE / TOKO PAKAIAN</small></span>
+      </div>
+      <button class="close" id="close" type="button" aria-label="Tutup wardrobe" title="Tutup">×</button>
+    </header>
+
+    <h1 id="title">Pilih outfit</h1>
+    <p class="intro">Preview outfit akan diterapkan langsung pada karakter game kamu.</p>
+
+    <section class="preview" aria-live="polite">
+      <div class="eyebrow">PREVIEW DALAM GAME</div>
+      <div class="status" id="status" data-state="waiting">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span id="statusText">Menghubungkan ke server…</span>
+      </div>
+      <p class="preview-note">Lihat karakter kamu di dunia game untuk menilai outfit.</p>
+    </section>
+
+    <div class="section-label">OUTFIT TERSEDIA</div>
+    <article class="item-card" aria-label="Outfit Gangster 1, custom skin 20001">
+      <div class="item-icon" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 5.5 16 8l5-2.5 5.2 3.2 3 7.2-4.1 2.1-2-3V27H9V14.8l-2 3-4.1-2.1 3-7.2L11 5.5Z" stroke="#f3d8ff" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="m11 5.5 2 4.2 3 2.4 3-2.4 2-4.2M16 12.1V27" stroke="#ff9cc7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="item-info">
+        <div class="item-name">Gangster 1</div>
+        <div class="item-sub">Custom skin · Model ID 20001</div>
+        <span class="item-tag">TERSEDIA</span>
+      </div>
+    </article>
+    <p class="description">Saat ini server menyediakan satu outfit custom. Outfit ini memakai file <strong>gangster1.dff</strong> dan <strong>gangster1.txd</strong>.</p>
+
+    <div class="actions">
+      <button class="primary" id="apply" type="button">Terapkan outfit</button>
+      <button class="secondary" id="cancel" type="button">Batal</button>
+    </div>
+    <p class="hint"><span class="key">Enter</span> Terapkan &nbsp; <span class="key">Esc</span> Batal</p>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var statusBox = document.getElementById('status');
+      var statusText = document.getElementById('statusText');
+      var toast = document.getElementById('toast');
+      var applyButton = document.getElementById('apply');
+      var cancelButton = document.getElementById('cancel');
+      var closeButton = document.getElementById('close');
+      var busy = false;
+      var toastTimer = 0;
+      var busyTimer = 0;
+      var stateTimer = 0;
+
+      function emit(eventName, value) {
+        try {
+          if (window.cef && typeof window.cef.emit === 'function') {
+            window.cef.emit(eventName, String(value));
+            return true;
+          }
+        } catch (error) {
+          console.warn('[Wardrobe] CEF bridge error:', error);
+        }
+        return false;
+      }
+
+      function setStatus(message, state) {
+        statusText.textContent = message;
+        statusBox.setAttribute('data-state', state || 'waiting');
+      }
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add('show');
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(function () {
+          toast.classList.remove('show');
+        }, 2200);
+      }
+
+      function setBusy(value) {
+        busy = value;
+        applyButton.disabled = value;
+        cancelButton.disabled = value;
+        closeButton.disabled = value;
+        window.clearTimeout(busyTimer);
+        if (value) {
+          busyTimer = window.setTimeout(function () {
+            setBusy(false);
+          }, 1800);
+        }
+      }
+
+      function applyOutfit() {
+        if (busy) return;
+        if (!emit('crystal_clothing_apply', 'save')) {
+          setStatus('CEF belum terhubung ke server.', 'error');
+          showToast('Tidak dapat mengirim pilihan ke server.');
+          return;
+        }
+        setBusy(true);
+        setStatus('Permintaan outfit dikirim ke server…', 'waiting');
+        showToast('Mengirim pilihan outfit…');
+      }
+
+      function cancelOutfit() {
+        if (busy) return;
+        if (!emit('crystal_clothing_cancel', 'cancel')) {
+          setStatus('CEF belum terhubung ke server.', 'error');
+          showToast('Tidak dapat mengirim pembatalan ke server.');
+          return;
+        }
+        setBusy(true);
+        setStatus('Menutup wardrobe…', 'waiting');
+      }
+
+      window.addEventListener('crystal_clothing_state', function () {
+        window.clearTimeout(stateTimer);
+        setStatus('Preview outfit aktif pada karakter.', 'ready');
+      });
+
+      applyButton.addEventListener('click', applyOutfit);
+      cancelButton.addEventListener('click', cancelOutfit);
+      closeButton.addEventListener('click', cancelOutfit);
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          applyOutfit();
+        } else if (event.key === 'Escape') {
+          event.preventDefault();
+          cancelOutfit();
+        }
+      });
+
+      if (emit('crystal_clothing_begin', 'start')) {
+        stateTimer = window.setTimeout(function () {
+          if (statusBox.getAttribute('data-state') !== 'ready') {
+            setStatus('Menunggu konfirmasi preview dari server…', 'waiting');
+          }
+        }, 2500);
+      } else {
+        setStatus('CEF belum terhubung ke server.', 'error');
+      }
+    }());
+  </script>
 </body>
 </html>
